@@ -1,0 +1,21 @@
+version: "2"
+
+linters:
+  default: all
+  disable:
+    - wsl
+    - wsl_v5
+    - nlreturn
+    - revive
+    - tagliatelle
+    - depguard
+    - staticcheck
+    - ireturn
+    - gochecknoglobals
+    - exhaustruct
+    - mnd
+    - wrapcheck
+  exclusions:
+    paths:
+    - (.+)_test\.go
+    - graph/(.+)\.resolvers\.go

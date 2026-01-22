@@ -1,0 +1,58 @@
+"""
+Input for the language detection query.
+"""
+input DetectLanguageInput {
+  "A unique identifier for the request."
+  requestID: ID!
+  "The text to be analyzed."
+  text: String!
+  "The minimum confidence threshold. Languages below this will be excluded."
+  minConfidence: Float
+  "The maximum number of languages to return."
+  maxLanguages: Int
+}
+
+"""
+Represents a single detected language and its confidence score.
+"""
+type DetectedLanguage {
+  "The ISO 639-1 code for the language (e.g., 'en')."
+  iso639i: String!
+  "The ISO 639-3 code for the language (e.g., 'eng')."
+  iso639iii: String!
+  "The display name of the language (e.g., 'English')."
+  language: String!
+  "The confidence score of the detection (0.0 to 1.0)."
+  confidence: Float!
+}
+
+"""
+Provides statistics about the detection process.
+"""
+type Stats {
+  "The total number of languages the detector was configured to check against."
+  totalSupportedLanguages: Int!
+  "The number of languages found in the text before any filtering."
+  detectedLanguages: Int!
+  "The number of languages filtered out due to low confidence or the maxLanguages limit."
+  skippedLanguages: Int!
+}
+
+"""
+The output of the language detection query.
+"""
+type DetectLanguageOutput {
+  "The unique identifier for the request."
+  requestID: ID!
+  "A list of detected languages that meet the filtering criteria."
+  detected: [DetectedLanguage!]!
+  "Statistics about the detection process."
+  stats: Stats!
+}
+
+type Query {
+  """
+  Detects the language(s) of a given text.
+  """
+	detectLanguage(input: DetectLanguageInput): DetectLanguageOutput!
+}
